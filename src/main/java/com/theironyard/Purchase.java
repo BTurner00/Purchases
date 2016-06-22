@@ -32,7 +32,11 @@ public class Purchase {
         this.customer = customer;
     }
 
+    public Purchase() {
+    }
+
     public int getId() {
+
         return id;
     }
 

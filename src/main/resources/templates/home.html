@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Purchases</title>
 </head>
 <body>
+<a href="/">All</a>
+<a href="/?category=Furniture">Furniture</a>
+<a href="/?category=Alcohol">Alcohol</a>
+<a href="/?category=Toiletries">Toiletries</a>
+<a href="/?category=Shoes">Shoes</a>
+<a href="/?category=Food">Food</a>
+<a href="/?category=Jewelry">Jewelry</a>
+
+<table style="width:100%">
+
+    <tr>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Category</td>
+        <td>Credit Card</td>
+        <td>CVV</td>
+        <td>Date</td>
+    </tr>
+    {{#purchases}}
+    <tr>
+        <td>{{customer.name}}</td>
+        <td>{{customer.email}}</td>
+        <td>{{category}}</td>
+        <td>{{credit}}</td>
+        <td>{{cvv}}</td>
+        <td>{{date}}</td>
+    </tr>
+    {{/purchases}}
+</table>
 
 </body>
 </html>

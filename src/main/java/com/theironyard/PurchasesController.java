@@ -2,6 +2,7 @@ package com.theironyard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -57,7 +58,26 @@ public class PurchasesController {
     @Autowired
     PurchaseRepository purchases;
     @RequestMapping(path= "/", method = RequestMethod.GET)
-    public String home () {
+    public String home (Model model, String category, String name, String email, String credit, String cvv, String date) {
+        Iterable<Purchase> purchs;
+
+        if (category != null) {
+            purchs = purchases.findByCategory(category);
+        } /*else if (name != null) {
+            purchs = purchases.findByName(name);
+        } else if (email != null) {
+            purchs = purchases.findByEmail(email);
+        }  */else if (credit != null) {
+            purchs = purchases.findByCredit(credit);
+        } else if (cvv != null) {
+            purchs = purchases.findByCvv(cvv);
+        } else if (date != null) {
+            purchs = purchases.findByDate(date);
+        } else {
+            purchs = purchases.findAll();
+        }
+
+        model.addAttribute("purchases", purchs);
         return "home";
     }
 

@@ -1,12 +1,12 @@
 package com.theironyard;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Ben on 6/22/16.
  */
+@Entity
+@Table (name="purchases")
 public class Purchase {
 
     @Id
@@ -16,16 +16,15 @@ public class Purchase {
     @Column(nullable=false)
     String date;
     @Column(nullable=false)
-    int credit;
+    String credit;
     @Column(nullable=false)
-    int cvv;
+    String cvv;
     @Column(nullable=false)
     String category;
-    @Column(nullable=false)
+    @ManyToOne
     Customer customer;
 
-    public Purchase(int id, String date, int credit, int cvv, String category, Customer customer) {
-        this.id = id;
+    public Purchase(String date, String credit, String cvv, String category, Customer customer) {
         this.date = date;
         this.credit = credit;
         this.cvv = cvv;
@@ -33,15 +32,12 @@ public class Purchase {
         this.customer = customer;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getId() {
+        return id;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Purchase() {
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {
@@ -52,19 +48,19 @@ public class Purchase {
         this.date = date;
     }
 
-    public int getCredit() {
+    public String getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(String credit) {
         this.credit = credit;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
@@ -76,11 +72,11 @@ public class Purchase {
         this.category = category;
     }
 
-    public int getId() {
-        return id;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

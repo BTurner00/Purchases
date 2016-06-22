@@ -1,12 +1,12 @@
 package com.theironyard;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Ben on 6/22/16.
  */
+@Entity
+@Table (name="customers")
 public class Customer {
     @Id
     @GeneratedValue
@@ -17,9 +17,7 @@ public class Customer {
     @Column(nullable=false)
     String email;
 
-    public Customer(int id, String name, String email) {
-
-        this.id = id;
+    public Customer(String name, String email) {
         this.name = name;
         this.email = email;
     }

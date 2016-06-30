@@ -1,15 +1,16 @@
 package com.theironyard;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * Created by Ben on 6/22/16.
  */
-public interface PurchaseRepository extends CrudRepository<Purchase, Integer> {
-    public Iterable<Purchase> findByCategory (String category);
-    //public Iterable<Purchase> findByName (String customer);
-    //public Iterable<Purchase> findByEmail (String email);
-    public Iterable<Purchase> findByCredit (String credit);
-    public Iterable<Purchase> findByDate (String date);
-    public Iterable<Purchase> findByCvv (String cvv);
+public interface PurchaseRepository extends PagingAndSortingRepository<Purchase, Integer> {
+    Page<Purchase> findByCategory (Pageable pageable, String category);
+    Page<Purchase> findByCredit (Pageable pageable, String credit);
+    Page<Purchase> findByDate (Pageable pageable, String date);
+    Page<Purchase> findByCvv (Pageable pageable, String cvv);
 }

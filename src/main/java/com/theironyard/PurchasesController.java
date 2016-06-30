@@ -1,6 +1,8 @@
 package com.theironyard;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,26 +60,34 @@ public class PurchasesController {
     @Autowired
     PurchaseRepository purchases;
     @RequestMapping(path= "/", method = RequestMethod.GET)
-    public String home (Model model, String category, String name, String email, String credit, String cvv, String date) {
-        Iterable<Purchase> purchs;
+    public String home (Model model, String category, String credit, String cvv, String date, Integer page) {
+        page = ((page) == null)? 0 : page;
+
+        PageRequest pr = new PageRequest(page, 10);
+
+        Page<Purchase> purchs;
 
         if (category != null) {
-            purchs = purchases.findByCategory(category);
-        } /*else if (name != null) {
-            purchs = purchases.findByName(name);
-        } else if (email != null) {
-            purchs = purchases.findByEmail(email);
-        }  */else if (credit != null) {
-            purchs = purchases.findByCredit(credit);
+            purchs = purchases.findByCategory(pr,category);
+        } /*else if (credit != null) {
+            purchs = purchases.findByCredit(pr,credit);
         } else if (cvv != null) {
-            purchs = purchases.findByCvv(cvv);
+            purchs = purchases.findByCvv(pr,cvv);
         } else if (date != null) {
-            purchs = purchases.findByDate(date);
-        } else {
-            purchs = purchases.findAll();
+            purchs = purchases.findByDate(pr,date);
+        } /*/else {
+            purchs = purchases.findAll(pr);
         }
 
+        model.addAttribute("category", category);
         model.addAttribute("purchases", purchs);
+
+        model.addAttribute("nextPage", page+1);
+        model.addAttribute("showNext", purchs.hasNext());
+
+        model.addAttribute("prevPage", page-1);
+        model.addAttribute("showPrev", purchs.hasPrevious());
+
         return "home";
     }
 
